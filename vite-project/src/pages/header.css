@@ -21,3 +21,7 @@
     margin: 10px;
     padding: 10px;
 }
+.login{
+    padding: 0 20px;
+    cursor: pointer;
+}
