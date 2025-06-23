@@ -20,7 +20,8 @@
         width: 300px;
     margin-top: 30px;
     padding: 5px;
-    background-color: rgb(247, 243, 237)    ;
+    height: 200px;
+    background-color: rgb(241, 237, 230)    ;
         box-shadow: 5px 5px 10px gray;
         margin: 20px;
 }

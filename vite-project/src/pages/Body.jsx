@@ -1,21 +1,28 @@
 import { useEffect, useState } from "react";
-import resList from "../db/data";
 import "./body.css";
 import { Restaurantcards } from "./RestaurantCard";
 import { Shimmer } from "./Shimmer";
 export const Body = () => {
-  const [listofRestaurant, setListofRestaurant] = useState(resList);
+  const [listofRestaurant, setListofRestaurant] = useState([]);
+  const [filteredRestaurant, setFilteredRestaurant] = useState([]);
+  const [searchtext, setSearchtext] = useState("");
 
   useEffect(() => {
     fetchData();
   }, []);
   const fetchData = async () => {
     const data = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9351929&lng=77.62448069999999&page_type=DESKTOP_WEB_LISTING"
+      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=23.022505&lng=72.5713621&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
     );
+    // https://corsproxy.io/?url=https://example.com
     const json = await data.json();
     console.log(json);
-    setListofRestaurant(json.data.cards[7].card.card);
+    setListofRestaurant(
+      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+    );
+    setFilteredRestaurant(
+      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+    );
   };
 
   if (listofRestaurant.length === 0) {
@@ -24,6 +31,26 @@ export const Body = () => {
   return (
     <div className="body">
       <div className="filter">
+        <div className="search">
+          <input
+            type="text"
+            className="search-box"
+            value={searchtext}
+            onChange={(e) => {
+              setSearchtext(e.target.value);
+            }}
+          />
+          <button
+            onClick={() => {
+              const filteredRestaurant = listofRestaurant.filter((res) =>
+                res.info.name.toLowerCase().includes(searchtext.toLowerCase())
+              );
+              setFilteredRestaurant(filteredRestaurant);
+            }}
+          >
+            Search
+          </button>
+        </div>
         <button
           className="filter-btn"
           onClick={() => {
@@ -42,7 +69,7 @@ export const Body = () => {
         ))} */}
 
         {Array.isArray(listofRestaurant) &&
-          listofRestaurant.map((restaurant) => (
+          filteredRestaurant.map((restaurant) => (
             <Restaurantcards key={restaurant.info.id} resData={restaurant} />
           ))}
       </div>
