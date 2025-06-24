@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "./body.css";
 import { Restaurantcards } from "./RestaurantCard";
 import { Shimmer } from "./Shimmer";
@@ -55,9 +56,9 @@ export const Body = () => {
           className="filter-btn"
           onClick={() => {
             const topRated = listofRestaurant.filter(
-              (res) => res.info.avgRating > 4.5
+              (res) => res.info.avgRating >= 4.5
             );
-            setListofRestaurant(topRated);
+            setFilteredRestaurant(topRated);
           }}
         >
           Top rated restaurants
@@ -70,7 +71,13 @@ export const Body = () => {
 
         {Array.isArray(listofRestaurant) &&
           filteredRestaurant.map((restaurant) => (
-            <Restaurantcards key={restaurant.info.id} resData={restaurant} />
+            <Link
+              className="nav-link"
+              key={restaurant.info.id}
+              to={"/restaurants/" + restaurant.info.id}
+            >
+              <Restaurantcards resData={restaurant} />
+            </Link>
           ))}
       </div>
     </div>
