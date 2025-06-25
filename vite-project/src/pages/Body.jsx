@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useOnlineStatus } from "../useOnlineStatus";
 import "./body.css";
 import { Restaurantcards } from "./RestaurantCard";
 import { Shimmer } from "./Shimmer";
@@ -25,6 +26,9 @@ export const Body = () => {
       json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
   };
+
+  const onlinestatus = useOnlineStatus();
+  if (onlinestatus === false) return <h1>Internet is off!!</h1>;
 
   if (listofRestaurant.length === 0) {
     return <Shimmer />;
