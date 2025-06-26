@@ -2,11 +2,12 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useOnlineStatus } from "../useOnlineStatus";
 import "./header.css";
+// @import "tailwindcss";
 export const Header = () => {
   const [loginbtn, setLoginbtn] = useState("Login");
   const online = useOnlineStatus(true);
   return (
-    <div className="header">
+    <div className="header bg-amber-300">
       <div className="logo-container">
         <img className="logo" src="./images/logo.png" alt="company name"></img>
       </div>

@@ -7,6 +7,7 @@ import { Body } from "./pages/Body";
 import { ContactUs } from "./pages/ContactUs";
 import { ErrorPage } from "./pages/ErrorPage";
 // import { Grocery } from "./pages/Grocery";
+import "./index.css";
 import { Menu } from "./pages/Menu";
 
 const Grocery = lazy(() => import("./pages/Grocery"));
